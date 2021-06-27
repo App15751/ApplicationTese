@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'alumno.dart';
-import 'aspirante.dart';
-import 'docentes/docentes.dart';
-import 'concemas.dart';
-
-import 'bienvenida.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
+import 'package:tese_app/alumno/alumno.dart';
+import 'package:tese_app/apirantes/aspirante.dart';
+import 'package:tese_app/docentes/docente.dart';
+import 'package:tese_app/inicio/bienvenida.dart';
+import 'package:tese_app/nosotros/concemas.dart';
 
 class Home extends StatelessWidget {
   // This widget is the root of your application.
@@ -61,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedItemIconColor: Colors.white,
           selectedItemLabelColor: Colors.black,
           showSelectedItemShadow: false,
-          barHeight: 90,
+          barHeight: 55,
         ),
         selectedIndex: selectedIndex,
         onSelectTab: (index) {

@@ -5,9 +5,8 @@ import 'package:tese_app/docentes/posgrados/maestrias.dart';
 class Cursos extends StatefulWidget {
   final heroTag;
   final foodName;
-  final foodPrice;
 
-  Cursos({this.heroTag, this.foodName, this.foodPrice});
+  Cursos({this.heroTag, this.foodName});
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -83,7 +82,7 @@ class _DetailsPageState extends State<Cursos> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(widget.foodPrice,
+                        Text('Subtitle',
                             style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontSize: 20.0,

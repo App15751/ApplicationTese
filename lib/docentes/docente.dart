@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:tese_app/docentes/posgrados/posgrados.dart';
@@ -15,7 +13,7 @@ class _MyHomePageState extends State<Docente> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF70232D),
+      backgroundColor: Color(0xFB4B4B4),
       body: Column(
         children: [
           Stack(
@@ -44,7 +42,7 @@ class _MyHomePageState extends State<Docente> {
 
           Padding(
             padding: const EdgeInsets.only(top: 15, bottom: 13),
-            child: Text('Selecciona alguna de las siguientes opciones', style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),),
+            child: Text('Selecciona alguna de las siguientes opciones', style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),),
           ),
 
           Column(
@@ -99,7 +97,7 @@ class _MyHomePageState extends State<Docente> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => DetailsPage(
-                      heroTag: imgPath, foodName: foodName, foodPrice: price)));
+                      heroTag: imgPath, foodName: foodName)));
             },
             child: Column(
               children: [
@@ -152,7 +150,7 @@ class _MyHomePageState extends State<Docente> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => Cursos(
-                      heroTag: imgPath, foodName: foodName, foodPrice: price)));
+                      heroTag: imgPath, foodName: foodName)));
             },
             child: Column(
               children: [
@@ -202,7 +200,7 @@ class _MyHomePageState extends State<Docente> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => Novedades(
-                      heroTag: imgPath, foodName: foodName, foodPrice: price)));
+                      heroTag: imgPath, foodName: foodName)));
             },
             child: Column(
               children: [

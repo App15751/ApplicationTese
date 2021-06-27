@@ -4,9 +4,8 @@ import 'convocatorias.dart';
 class Novedades extends StatefulWidget {
   final heroTag;
   final foodName;
-  final foodPrice;
 
-  Novedades({this.heroTag, this.foodName, this.foodPrice});
+  Novedades({this.heroTag, this.foodName});
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -76,7 +75,7 @@ class _DetailsPageState extends State<Novedades> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(widget.foodPrice,
+                        Text('Subtitle',
                             style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontSize: 20.0,
