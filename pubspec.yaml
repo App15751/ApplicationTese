@@ -65,8 +65,30 @@ flutter:
   assets:
      - animaciones/logo.png
      - animaciones/
-     
-     
+
+  fonts:
+    - family: OpenSansCondensed
+      fonts:
+        - asset: fonts/OpenSansCondensed-LightItalic.ttf
+        - asset: fonts/OpenSansCondensed-Light.ttf
+        - asset: fonts/OpenSansCondensed-Bold.ttf
+    - family: PlayfairDisplay
+      fonts:
+        - asset: fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf
+        - asset: fonts/PlayfairDisplay-VariableFont_wght.ttf
+        - asset: fonts/static/PlayfairDisplay-SemiBoldItalic.ttf
+        - asset: fonts/static/PlayfairDisplay-SemiBold.ttf
+        - asset: fonts/static/PlayfairDisplay-Regular.ttf
+        - asset: fonts/static/PlayfairDisplay-MediumItalic.ttf
+        - asset: fonts/static/PlayfairDisplay-Medium.ttf
+        - asset: fonts/static/PlayfairDisplay-Italic.ttf
+        - asset: fonts/static/PlayfairDisplay-ExtraBoldItalic.ttf
+        - asset: fonts/static/PlayfairDisplay-ExtraBold.ttf
+        - asset: fonts/static/PlayfairDisplay-BoldItalic.ttf
+        - asset: fonts/static/PlayfairDisplay-Bold.ttf
+        - asset: fonts/static/PlayfairDisplay-BlackItalic.ttf
+        - asset: fonts/static/PlayfairDisplay-Black.ttf
+
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

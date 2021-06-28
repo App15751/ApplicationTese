@@ -1,9 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tese_app/connection/Data.dart';
 import 'package:tese_app/connection/ImagesData.dart';
 import 'package:tese_app/connection/Words.dart';
+
+import 'Details.dart';
 
 class Bienvenida extends StatefulWidget {
   @override
@@ -22,13 +25,17 @@ class _BienvenidaState extends State<Bienvenida> {
     ConexionNovedad("Inicio", "Novedades");
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(children: [
-        SizedBox(
-            height: 200.0,
-            width: 200.0,
+          Stack(
+          alignment: const Alignment(0, 0),
+        children: <Widget>[
+          SizedBox(
+              height: 200.0,
+              width: 360.0,
             child: CarouselSlider.builder(
                 itemCount: listImages.length,
                 itemBuilder: (_, x, index) {
@@ -47,6 +54,29 @@ class _BienvenidaState extends State<Bienvenida> {
                   enlargeCenterPage: true,
                   initialPage: 1,
                 ))),
+          Container(
+            margin: EdgeInsets.only(right:150,top:150),
+
+            decoration: BoxDecoration(
+            boxShadow: [BoxShadow(
+    color: Colors.grey.withOpacity(0.5), //color of shadow
+    spreadRadius: 5, //spread radius
+    blurRadius: 7, // blur radius
+    offset: Offset(0, 2), // changes position of shadow
+
+    ),
+     ]
+            ),
+            child: Text(
+              'Docentes',textAlign:
+            TextAlign.start,
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),]),
         Divider(
           height: 25,
         ),
@@ -56,6 +86,7 @@ class _BienvenidaState extends State<Bienvenida> {
             child: list.length == 0
                 ? Text("Data is null")
                 : new ListView.builder(
+
                     itemCount: list.length,
                     itemBuilder: (_, index) {
                       return UI(
@@ -71,34 +102,43 @@ class _BienvenidaState extends State<Bienvenida> {
 
   Widget UI(String descripcion, String fecha, String imagen, String subtitulo,
       String titulo) {
-    return new Card(
-        elevation: 15,
-        child: new Column(
-          children: <Widget>[
-            new ListTile(
-              leading: new Image.network(
-                imagen,
-                fit: BoxFit.cover,
-                width: 100.0,
-              ),
-              title: new Text(
-                titulo,
-                style:
-                    new TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
-              ),
-              subtitle: new Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    new Text(subtitulo,
-                        style: new TextStyle(
-                            fontSize: 13.0, fontWeight: FontWeight.normal)),
-                  ]),
-              //trailing: ,
-              onTap: () {},
-            )
-          ],
-        ));
+    return GestureDetector(
+      onTap: (){
+
+      },
+      child: new Card(
+        margin: EdgeInsets.only(left:20.0, top:10.0,right:20.0,bottom:20.0) ,
+          elevation: 15,
+          child: new Column(
+            children: <Widget>[
+              new ListTile(
+                leading: new Image.network(
+                  imagen,
+                  fit: BoxFit.cover,
+                  width: 100.0,
+                ),
+                title: new Text(
+                  titulo,
+                  style:
+                      new TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+                ),
+                subtitle: new Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      new Text(subtitulo,
+                          style: new TextStyle(
+                              fontSize: 13.0, fontWeight: FontWeight.normal)),
+                    ]),
+                //trailing: ,
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Details(Data(descripcion,fecha,imagen,subtitulo,titulo))));
+                },
+              )
+            ],
+          )),
+    );
   }
 
   void ConexionNovedad(String NodoPrincipal, String NodoSecundario) {
