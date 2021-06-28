@@ -30,7 +30,9 @@ dependencies:
   cupertino_icons:
   flutter_widget_from_html:
   http:
-  carousel_slider: ^4.0.0
+  carousel_slider:
+  floating_action_bubble:
+  cached_network_image:
   animate_do: ^2.0.0
   shared_preferences:
   fluttertoast:

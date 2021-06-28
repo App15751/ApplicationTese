@@ -1,41 +1,144 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_pro/carousel_pro.dart';
-import 'dart:math';
+import 'package:tese_app/connection/Data.dart';
+import 'package:tese_app/connection/ImagesData.dart';
+import 'package:tese_app/connection/Words.dart';
 
-class Bienvenida extends StatelessWidget {
+class Bienvenida extends StatefulWidget {
+  @override
+  _BienvenidaState createState() => _BienvenidaState();
+}
+
+class _BienvenidaState extends State<Bienvenida> {
+  final fb = FirebaseDatabase.instance.reference();
+  List<Data> list = List();
+  List<ImagesData> listImages = List();
+
+  @override
+  void initState() {
+    super.initState();
+    ConexionImages("Inicio", "Tese");
+    ConexionNovedad("Inicio", "Novedades");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(children: <Widget>[
+      body: ListView(children: [
         SizedBox(
-          height: 200.0,
-          width: 200.0,
-          child: Carrusel(),
+            height: 200.0,
+            width: 200.0,
+            child: CarouselSlider.builder(
+                itemCount: listImages.length,
+                itemBuilder: (_, x, index) {
+                  return Container(
+                      child: Image(
+                    image: NetworkImage(listImages[x].imagen),
+                  ));
+                },
+                options: CarouselOptions(
+                  height: 220,
+                  autoPlay: true,
+                  viewportFraction: 1,
+                  aspectRatio: 0.7,
+                  enableInfiniteScroll: true,
+                  disableCenter: true,
+                  enlargeCenterPage: true,
+                  initialPage: 1,
+                ))),
+        Divider(
+          height: 25,
         ),
+        SizedBox(
+            height: 400.0,
+            width: 200.0,
+            child: list.length == 0
+                ? Text("Data is null")
+                : new ListView.builder(
+                    itemCount: list.length,
+                    itemBuilder: (_, index) {
+                      return UI(
+                          list[index].Descripcion,
+                          list[index].fecha,
+                          list[index].imagen,
+                          list[index].subtitulo,
+                          list[index].titulo);
+                    }))
       ]),
     );
   }
-}
 
-Widget Carrusel() {
-  return Carousel(
-    images: [
-      NetworkImage(
-          'https://2.bp.blogspot.com/-LpNFsubDbYI/XTdxp9SFoHI/AAAAAAACpQw/h0o960MD9sYAf_z0_ZoyQW-UaVdHetixgCLcBGAs/s1600/thumbnail%2B%252810%2529.jpg'),
-      NetworkImage(
-          'https://1.bp.blogspot.com/-_9tEt6fodOY/XXrr0MU-WgI/AAAAAAACwgs/P_Tw-8BX6i47USi6SKc0KPvfqyB2BcjXACLcBGAsYHQ/s1600/b2.jpg'),
-      NetworkImage(
-          'https://lh3.googleusercontent.com/proxy/-Nlekb_5_ucrSpu-7aec-zCZ2Gc8_8JGMXz76iHGOxiNrnKhacsymp2NXLnLp-fXXMQC67ik8Y0OHewFtK2UJWzSw5ZkiPAg'),
-      NetworkImage('https://i.ytimg.com/vi/c_HxG5kncM4/maxresdefault.jpg'),
-      NetworkImage(
-          'https://fastly.4sqi.net/img/general/600x600/408463298_HZ_5b6EMWCyN8exfE8vvYffNgq0xGYrV5KCNyDDjpdo.jpg'),
-    ],
-    showIndicator: false,
-    borderRadius: false,
-    moveIndicatorFromBottom: 180.0,
-    noRadiusForIndicator: true,
-    overlayShadow: true,
-    overlayShadowColors: Colors.white,
-    overlayShadowSize: 0.7,
-  );
+  Widget UI(String descripcion, String fecha, String imagen, String subtitulo,
+      String titulo) {
+    return new Card(
+        elevation: 15,
+        child: new Column(
+          children: <Widget>[
+            new ListTile(
+              leading: new Image.network(
+                imagen,
+                fit: BoxFit.cover,
+                width: 100.0,
+              ),
+              title: new Text(
+                titulo,
+                style:
+                    new TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+              ),
+              subtitle: new Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    new Text(subtitulo,
+                        style: new TextStyle(
+                            fontSize: 13.0, fontWeight: FontWeight.normal)),
+                  ]),
+              //trailing: ,
+              onTap: () {},
+            )
+          ],
+        ));
+  }
+
+  void ConexionNovedad(String NodoPrincipal, String NodoSecundario) {
+    fb
+        .child(NodoPrincipal)
+        .child(NodoSecundario)
+        .once()
+        .then((DataSnapshot snap) {
+      var data = snap.value;
+      list.clear();
+      data.forEach((key, value) {
+        Data data = new Data(
+          value[Words().DESCRIPTION],
+          value[Words().DATE],
+          value[Words().IAMGE],
+          value[Words().SUBTITLE],
+          value[Words().TITLE],
+        );
+        list.add(data);
+      });
+      setState(() {});
+    });
+  }
+
+  void ConexionImages(String NodoPrincipal, String NodoSecundario) {
+    fb
+        .child(NodoPrincipal)
+        .child(NodoSecundario)
+        .once()
+        .then((DataSnapshot snap) {
+      var data = snap.value;
+      listImages.clear();
+      data.forEach((key, value) {
+        ImagesData data = new ImagesData(
+          value[Words().IMAGEN],
+          value[Words().TITULO],
+        );
+        listImages.add(data);
+      });
+      setState(() {});
+    });
+  }
 }

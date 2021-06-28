@@ -1,11 +1,9 @@
-import 'dart:convert';
-import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tese_app/data/dataCursos.dart';
-import 'maestrias.dart';
-import 'package:http/http.dart' as http;
+import 'package:tese_app/connection/Data.dart';
+import 'package:tese_app/connection/Words.dart';
+
 
 class DetailsPage extends StatefulWidget {
   final heroTag;
@@ -30,11 +28,11 @@ class _DetailsPageState extends State<DetailsPage> {
       list.clear();
       data.forEach((key,value){
         Data data = new Data(
-          Descripcion: value['Descripcion'],
-          fecha: value['fecha'],
-          imagen: value['imagen'],
-          subtitulo: value['subtitulo'],
-          titulo: value['titulo'],
+          value[Words().DESCRIPTION],
+          value[Words().DATE],
+          value[Words().IAMGE],
+          value[Words().SUBTITLE],
+          value[Words().TITLE],
         );
         list.add(data);
       });
@@ -101,14 +99,14 @@ class _DetailsPageState extends State<DetailsPage> {
         ),
       );
     }
+
+
     return Scaffold(
       body: Container(
         child: list.length == 0 ? Text("Data is null"): new ListView.builder(
           itemCount: list.length,
           itemBuilder: (_,index){
-
             return UI(list[index].Descripcion, list[index].fecha, list[index].imagen, list[index].subtitulo, list[index].titulo);
-
           }
         ),
       ),
