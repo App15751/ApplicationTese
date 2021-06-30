@@ -1,9 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tese_app/alumno/Novedades.dart';
 import 'Login.dart';
 
-class Alumno extends StatelessWidget {
+class Alumno extends StatefulWidget {
+  @override
+  _AlumnoState createState() => _AlumnoState();
+}
+
+class _AlumnoState extends State<Alumno> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,8 +34,7 @@ class Alumno extends StatelessWidget {
 class Xook extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        body: Container(
+    return Container(
       padding: EdgeInsets.only(top: 100, bottom: 10, right: 5, left: 5),
       decoration: BoxDecoration(
           color: Colors.white70,
@@ -83,15 +87,12 @@ class Xook extends StatelessWidget {
                           ))),
                 ),
 
-
-
                 //HACIA ABAJO
               ]),
 
               // DE LADO DERECHO
               Column(
                 children: <Widget>[
-
                   Padding(
                     padding: EdgeInsets.all(10),
                     child: RaisedButton(
@@ -110,7 +111,8 @@ class Xook extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 10, top: 5),
+                                    padding:
+                                        const EdgeInsets.only(left: 10, top: 5),
                                     child: Container(
                                         width: 70.0,
                                         height: 80.0,
@@ -118,7 +120,8 @@ class Xook extends StatelessWidget {
                                             image: DecorationImage(
                                                 image: NetworkImage(
                                                     "https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/horario.png?alt=media&token=dadf1a5e-46db-475c-9807-c3236191c1b1"),
-                                                alignment: Alignment.topCenter))),
+                                                alignment:
+                                                    Alignment.topCenter))),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(9.0),
@@ -132,13 +135,10 @@ class Xook extends StatelessWidget {
                               ),
                             ))),
                   ),
-
-
                 ],
               )
             ],
           ),
-
           Padding(
             padding: EdgeInsets.all(10),
             child: RaisedButton(
@@ -179,10 +179,9 @@ class Xook extends StatelessWidget {
                       ),
                     ))),
           ),
-
         ],
       ),
-    ));
+    );
   }
 }
 
@@ -241,269 +240,98 @@ class Maestrias extends StatelessWidget {
 }
 
 //Clase principal
-class Inicio extends StatelessWidget {
+class Inicio extends StatefulWidget {
+  @override
+  _InicioState createState() => _InicioState();
+}
 
+class _InicioState extends State<Inicio> with SingleTickerProviderStateMixin {
+  TabController _tabController;
   final Shader linearGradient = LinearGradient(
     colors: <Color>[Color(0xffe5122f), Color(0xffdc1313)],
   ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
   @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(top: 20, bottom: 9, right: 0, left: 0),
-          decoration: BoxDecoration(
-              color: Color(0xFF70232D),
-              image: DecorationImage(
-                  image: NetworkImage(
-                      "https://i2.wp.com/edomexinforma.com.mx/media/2016/01/TESE-31.jpg?fit=1200%2C726"),
-                  alignment: Alignment.topCenter)),
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Column(
-                  children: [
-                    Text('Bienvenidos', style: TextStyle(
-                      fontSize: 50,
-                      foreground: Paint()
-                        ..shader = linearGradient
-                        ..color = Color(0xFF000000),
-                    ),),
+    return SingleChildScrollView(
+        child: Column(
+      children: <Widget>[
+        ImgenCabecera(),
+        Container(
+            child: Column(children: <Widget>[
+              Container(child:getTabBar(), color: Color(0xFF70232D),),
+          Container(
+            height: 400,
+            child: getTabBarView(<Widget>[Novedades(),Xook()]),
+          )
+        ]))
+      ],
+    ));
+  }
 
-                    Text('Alumnos', style: TextStyle(
-                      fontSize: 50,
-                      foreground: Paint()
-                        ..shader = linearGradient
-                        ..style = PaintingStyle.stroke
-                        ..strokeWidth = 2.5
-                        ..color = Color(0xFF000000),
-                    ),),
-                  ],
-                ),
-              ),
-              Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Column(children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                          child: RaisedButton(
-                              color: Colors.white,
-                              shape: new RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              highlightColor: Colors.red.shade300,
-                              onPressed: () {
-                                Navigator.pushNamed(context, "/xook");
-                                print(getCadena());
-                              },
-                              child: SizedBox(
-                                  width: 120,
-                                  height: 120,
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                            width: 90.0,
-                                            height: 90.0,
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        "https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/xook.png?alt=media&token=53d69365-3f80-4a27-a9bb-cf32153a2481"),
-                                                    alignment:
-                                                        Alignment.topCenter))),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Text(
-                                            'XOOK',
-                                            style: TextStyle(fontSize: 13),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ))),
-                        ),
+  Widget ImgenCabecera(){
+   return Stack(
+       alignment: const Alignment(0, 0),
+       children: <Widget>[
+           Image(
+                         alignment: Alignment.center,
+                         fit: BoxFit.fill,
+                         image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/tese%2Ftesepics_67509949_248264832723576_6279915397766464018_n.jpg?alt=media&token=4b625551-19d0-40b2-a187-fbcbf18f4ce4"),
+                       ),
+         Container(
+           margin: EdgeInsets.only(right:150,top:150),
+           decoration: BoxDecoration(
+               boxShadow: [BoxShadow(
+                 color: Colors.grey.withOpacity(0.5), //color of shadow
+                 spreadRadius: 5, //spread radius
+                 blurRadius: 7, // blur radius
+                 offset: Offset(0, 2), // changes position of shadow
+               ),
+               ]
+           ),
+           child: Text(
+             'Alumnos',textAlign:
+           TextAlign.start,
+             style: TextStyle(
+               fontSize: 30,
+               fontWeight: FontWeight.bold,
+               color: Colors.white,
+             ),
+           ),
+         ),]);
+  }
 
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                          child: RaisedButton(
-                              color: Colors.white,
-                              shape: new RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              highlightColor: Colors.red.shade300,
-                              onPressed: () {
-                                Navigator.pushNamed(context, "/reinscripciones");
-                              },
-                              child: SizedBox(
-                                  width: 120,
-                                  height: 120,
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(0.0),
-                                          child: Container(
-                                              width: 80.0,
-                                              height: 80.0,
-                                              decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          "https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/reinscripciones.png?alt=media&token=7c9acfed-44de-4fa1-adcb-58036b653caa"),
-                                                      alignment:
-                                                          Alignment.topCenter))),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(9.0),
-                                          child: Text(
-                                            'REINSCRIPCIONES',
-                                            style: TextStyle(fontSize: 12),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ))),
-                        ),
+  TabBar getTabBar() {
+    return TabBar(
+      tabs: <Tab>[Tab(text: "Noticias"), Tab(text: "XOOK")],
+      controller: _tabController,
 
-                        //HACIA ABAJO
-                      ]),
+      unselectedLabelColor: const Color(0xffacb3bf),
+      indicatorColor: Color(0xFFffac81),
+      labelColor: Colors.white,
+      indicatorSize: TabBarIndicatorSize.tab,
+      indicatorWeight: 3.0,
+      indicatorPadding: EdgeInsets.all(10),
+      isScrollable: false,
+    );
+  }
 
-                      // DE LADO DERECHO
-                      Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: RaisedButton(
-                                color: Colors.white,
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0)),
-                                highlightColor: Colors.red.shade300,
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "/becas");
-                                },
-                                child: SizedBox(
-                                    width: 120,
-                                    height: 120,
-                                    child: Center(
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 8),
-                                            child: Container(
-                                                width: 73.0,
-                                                height: 73.0,
-                                                decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                        image: NetworkImage(
-                                                            "https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/becas.png?alt=media&token=ec7df363-e136-45f7-a224-5b38fe15cb38"),
-                                                        alignment:
-                                                            Alignment.topCenter))),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Text(
-                                              'BECAS',
-                                              style: TextStyle(fontSize: 12),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ))),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: RaisedButton(
-                                color: Colors.white,
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0)),
-                                highlightColor: Colors.red.shade300,
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "/maestrias");
-                                },
-                                child: SizedBox(
-                                    width: 120,
-                                    height: 120,
-                                    child: Center(
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(0.0),
-                                            child: Container(
-                                                width: 80.0,
-                                                height: 80.0,
-                                                decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                        image: NetworkImage(
-                                                            "https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/maestrias.png?alt=media&token=1ab098d3-ed46-42dc-8439-d2982de87b33"),
-                                                        alignment:
-                                                            Alignment.topCenter))),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(9.0),
-                                            child: Text(
-                                              'MAESTRIAS',
-                                              style: TextStyle(fontSize: 12),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ))),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: RaisedButton(
-                        color: Colors.white,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        highlightColor: Colors.red.shade300,
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/cursos");
-                        },
-                        child: SizedBox(
-                            width: 120,
-                            height: 120,
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(0.0),
-                                    child: Container(
-                                        width: 85.0,
-                                        height: 85.0,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                    "https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/cursos.png?alt=media&token=8bb130b7-7cfe-4f7b-8d66-960a61e8e198"),
-                                                alignment: Alignment.topCenter))),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(9.0),
-                                    child: Text(
-                                      'CURSOS',
-                                      style: TextStyle(fontSize: 12),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ))),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+  TabBarView getTabBarView(var display) {
+    return TabBarView(
+      children: display,
+      controller: _tabController,
     );
   }
 }

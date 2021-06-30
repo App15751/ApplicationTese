@@ -15,8 +15,9 @@ class Details extends StatelessWidget {
           Image.network(
             data.imagen,
             width: 200,
-            height: 240,
             fit: BoxFit.cover,
+              height: 180,
+              alignment: Alignment.center
           ),Divider(height: 10,),
           titleSection(data.titulo,data.subtitulo),
           DetaiText(data.Descripcion),

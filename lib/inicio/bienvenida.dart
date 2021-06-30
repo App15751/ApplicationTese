@@ -41,6 +41,8 @@ class _BienvenidaState extends State<Bienvenida> {
                 itemBuilder: (_, x, index) {
                   return Container(
                       child: Image(
+                        alignment: Alignment.center,
+                        fit: BoxFit.fill,
                     image: NetworkImage(listImages[x].imagen),
                   ));
                 },
@@ -68,7 +70,7 @@ class _BienvenidaState extends State<Bienvenida> {
      ]
             ),
             child: Text(
-              'Docentes',textAlign:
+              'Inicio',textAlign:
             TextAlign.start,
               style: TextStyle(
                 fontSize: 30,
@@ -86,7 +88,6 @@ class _BienvenidaState extends State<Bienvenida> {
             child: list.length == 0
                 ? Text("Data is null")
                 : new ListView.builder(
-
                     itemCount: list.length,
                     itemBuilder: (_, index) {
                       return UI(
