@@ -1,30 +1,28 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:tese_app/connection/Data.dart';
 import 'package:tese_app/connection/Words.dart';
 
-import 'infoCursos.dart';
+import 'info.dart';
 
-
-
-
-class Cursos extends StatefulWidget {
+class Carreras extends StatefulWidget {
   final heroTag;
   final raceName;
 
-  Cursos({this.heroTag, this.raceName});
+  Carreras({this.heroTag, this.raceName});
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<Cursos> {
+class _MyHomePageState extends State<Carreras> {
   final fb = FirebaseDatabase.instance.reference();
   List<Data> list = List();
 
   @override
   void initState() {
     super.initState();
-    ConexionCarreras("Docentes", "Cursos");
+    ConexionCarreras("Aspirante", "Carreras");
   }
 
   @override
@@ -44,7 +42,7 @@ class _MyHomePageState extends State<Cursos> {
                   color: Colors.black45,
                 ),
                 child: Text(
-                  'Cursos Disponibles',
+                  'Carreras Disponibles',
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -109,7 +107,7 @@ class _MyHomePageState extends State<Cursos> {
                 //trailing: ,
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => DetailsCursos(Data(
+                      builder: (context) => DetailsCarrera(Data(
                           descripcion, fecha, imagen, subtitulo, titulo))));
                 },
               )

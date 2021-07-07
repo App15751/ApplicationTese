@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
         "/Aspirante": (BuildContext context) => Aspirante(),
         "/Alumno": (BuildContext context) => Alumno(),
         "/Docente": (BuildContext context) => Docente(),
-        "/conocemas": (BuildContext context) => Conocemas(),
+        "/conocemas": (BuildContext context) => ConceMas(),
       },
       home: MyHomePage(title: 'Bienvenido a la APP Del tese'),
     );
@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Alumno(),
     Aspirante(),
     Docente(),
-    Conocemas(),
+    ConceMas(),
   ];
 
   @override
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           FFNavigationBarItem(
             iconData: Icons.settings,
-            label: 'Conoce MAs',
+            label: 'Nosotros',
             selectedBackgroundColor: Colors.red,
           ),
         ],

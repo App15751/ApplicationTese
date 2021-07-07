@@ -25,60 +25,47 @@ class _BienvenidaState extends State<Bienvenida> {
     ConexionNovedad("Inicio", "Novedades");
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(children: [
-          Stack(
-          alignment: const Alignment(0, 0),
-        children: <Widget>[
+        Stack(alignment: const Alignment(0, 0), children: <Widget>[
           SizedBox(
-              height: 200.0,
+              height: 150.0,
               width: 360.0,
-            child: CarouselSlider.builder(
-                itemCount: listImages.length,
-                itemBuilder: (_, x, index) {
-                  return Container(
-                      child: Image(
-                        alignment: Alignment.center,
-                        fit: BoxFit.fill,
-                    image: NetworkImage(listImages[x].imagen),
-                  ));
-                },
-                options: CarouselOptions(
-                  height: 220,
-                  autoPlay: true,
-                  viewportFraction: 1,
-                  aspectRatio: 0.7,
-                  enableInfiniteScroll: true,
-                  disableCenter: true,
-                  enlargeCenterPage: true,
-                  initialPage: 1,
-                ))),
+              child: CarouselSlider.builder(
+                  itemCount: listImages.length,
+                  itemBuilder: (_, x, index) {
+                    return Container(
+                        child: Image(
+                      alignment: Alignment.center,
+                      fit: BoxFit.fill,
+                      image: NetworkImage(listImages[x].imagen),
+                    ));
+                  },
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    viewportFraction: 1,
+                    aspectRatio: 0.7,
+                    enableInfiniteScroll: true,
+                    disableCenter: true,
+                    enlargeCenterPage: true,
+                    initialPage: 1,
+                  ))),
           Container(
-            margin: EdgeInsets.only(right:150,top:150),
-
             decoration: BoxDecoration(
-            boxShadow: [BoxShadow(
-    color: Colors.grey.withOpacity(0.5), //color of shadow
-    spreadRadius: 5, //spread radius
-    blurRadius: 7, // blur radius
-    offset: Offset(0, 2), // changes position of shadow
-
-    ),
-     ]
+              color: Colors.black45,
             ),
             child: Text(
-              'Inicio',textAlign:
-            TextAlign.start,
+              'Inicio',
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
-          ),]),
+          ),
+        ]),
         Divider(
           height: 25,
         ),
@@ -86,7 +73,7 @@ class _BienvenidaState extends State<Bienvenida> {
             height: 400.0,
             width: 200.0,
             child: list.length == 0
-                ? Text("Data is null")
+                ? Text("Cargando...")
                 : new ListView.builder(
                     itemCount: list.length,
                     itemBuilder: (_, index) {
@@ -104,11 +91,10 @@ class _BienvenidaState extends State<Bienvenida> {
   Widget UI(String descripcion, String fecha, String imagen, String subtitulo,
       String titulo) {
     return GestureDetector(
-      onTap: (){
-
-      },
+      onTap: () {},
       child: new Card(
-        margin: EdgeInsets.only(left:20.0, top:10.0,right:20.0,bottom:20.0) ,
+          margin:
+              EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0, bottom: 20.0),
           elevation: 15,
           child: new Column(
             children: <Widget>[
@@ -120,8 +106,8 @@ class _BienvenidaState extends State<Bienvenida> {
                 ),
                 title: new Text(
                   titulo,
-                  style:
-                      new TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+                  style: new TextStyle(
+                      fontSize: 14.0, fontWeight: FontWeight.bold),
                 ),
                 subtitle: new Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -134,7 +120,8 @@ class _BienvenidaState extends State<Bienvenida> {
                 //trailing: ,
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Details(Data(descripcion,fecha,imagen,subtitulo,titulo))));
+                      builder: (context) => Details(Data(
+                          descripcion, fecha, imagen, subtitulo, titulo))));
                 },
               )
             ],

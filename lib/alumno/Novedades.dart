@@ -34,7 +34,8 @@ class _NovedadesState extends State<Novedades> {
     height: 400.0,
     width: 200.0,
     child: list.length == 0
-    ? Text("Data is null")
+    ? Text("Cargando...", style: TextStyle(fontSize: 16, color: Color(
+        0xffb1acac),),)
         : new ListView.builder(
     itemCount: list.length,
     itemBuilder: (_, index) {

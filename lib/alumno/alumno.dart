@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tese_app/alumno/Novedades.dart';
 import 'Login.dart';
@@ -19,10 +20,6 @@ class _AlumnoState extends State<Alumno> {
         ),
         routes: <String, WidgetBuilder>{
           "/xook": (BuildContext context) => Xook(),
-          "/reinscripciones": (BuildContext context) => Reincripciones(),
-          "/cursos": (BuildContext context) => Curso(),
-          "/becas": (BuildContext context) => Becas(),
-          "/maestrias": (BuildContext context) => Maestrias(),
           "/calificaciones": (BuildContext context) => Login(),
           "/passwordRestore": (BuildContext context) => Login(),
           "/horario": (BuildContext context) => Login(),
@@ -35,13 +32,7 @@ class Xook extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 100, bottom: 10, right: 5, left: 5),
-      decoration: BoxDecoration(
-          color: Colors.white70,
-          image: DecorationImage(
-              image: NetworkImage(
-                  "https://www.redem.org/wp-content/uploads/2016/04/profesor-universitario.jpg"),
-              alignment: Alignment.topCenter)),
+      padding: EdgeInsets.only(top: 15, bottom: 0, right: 5, left: 5),
       child: Column(
         children: <Widget>[
           Row(
@@ -195,50 +186,6 @@ setCadena(String _cadena) async {
   prefs.setString('dataXook', _cadena);
 }
 
-class Reincripciones extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      body: Center(
-        child: Text("SECCION DE REINSCRIPCIONES"),
-      ),
-    );
-  }
-}
-
-class Curso extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      body: Center(
-        child: Text("IDIOMAS"),
-      ),
-    );
-  }
-}
-
-class Becas extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      body: Center(
-        child: Text("SECCION DE BECAS"),
-      ),
-    );
-  }
-}
-
-class Maestrias extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      body: Center(
-        child: Text("MAESTRIAS"),
-      ),
-    );
-  }
-}
-
 //Clase principal
 class Inicio extends StatefulWidget {
   @override
@@ -247,9 +194,6 @@ class Inicio extends StatefulWidget {
 
 class _InicioState extends State<Inicio> with SingleTickerProviderStateMixin {
   TabController _tabController;
-  final Shader linearGradient = LinearGradient(
-    colors: <Color>[Color(0xffe5122f), Color(0xffdc1313)],
-  ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
   @override
   void initState() {
@@ -271,54 +215,50 @@ class _InicioState extends State<Inicio> with SingleTickerProviderStateMixin {
         ImgenCabecera(),
         Container(
             child: Column(children: <Widget>[
-              Container(child:getTabBar(), color: Color(0xFF70232D),),
           Container(
-            height: 400,
-            child: getTabBarView(<Widget>[Novedades(),Xook()]),
+            child: getTabBar(),
+            color: Color(0xFF70232D),
+          ),
+          Container(
+            height: 450,
+            child: getTabBarView(<Widget>[Novedades(), Xook()]),
           )
         ]))
       ],
     ));
   }
 
-  Widget ImgenCabecera(){
-   return Stack(
-       alignment: const Alignment(0, 0),
-       children: <Widget>[
-           Image(
-                         alignment: Alignment.center,
-                         fit: BoxFit.fill,
-                         image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/tese%2Ftesepics_67509949_248264832723576_6279915397766464018_n.jpg?alt=media&token=4b625551-19d0-40b2-a187-fbcbf18f4ce4"),
-                       ),
-         Container(
-           margin: EdgeInsets.only(right:150,top:150),
-           decoration: BoxDecoration(
-               boxShadow: [BoxShadow(
-                 color: Colors.grey.withOpacity(0.5), //color of shadow
-                 spreadRadius: 5, //spread radius
-                 blurRadius: 7, // blur radius
-                 offset: Offset(0, 2), // changes position of shadow
-               ),
-               ]
-           ),
-           child: Text(
-             'Alumnos',textAlign:
-           TextAlign.start,
-             style: TextStyle(
-               fontSize: 30,
-               fontWeight: FontWeight.bold,
-               color: Colors.white,
-             ),
-           ),
-         ),]);
+  Widget ImgenCabecera() {
+    return Stack(alignment: const Alignment(0, 0), children: <Widget>[
+      Image(
+        height: 185,
+        width: 365,
+        alignment: Alignment.center,
+        fit: BoxFit.fill,
+        image: NetworkImage(
+            "https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/tese%2Ftesepics_67509949_248264832723576_6279915397766464018_n.jpg?alt=media&token=4b625551-19d0-40b2-a187-fbcbf18f4ce4"),
+      ),
+      Container(
+        decoration: BoxDecoration(
+          color: Colors.black45,
+        ),
+        child: Text(
+          'Alumnos',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    ]);
   }
 
   TabBar getTabBar() {
     return TabBar(
       tabs: <Tab>[Tab(text: "Noticias"), Tab(text: "XOOK")],
       controller: _tabController,
-
-      unselectedLabelColor: const Color(0xffacb3bf),
+      unselectedLabelColor: const Color(0xffb7c1c7),
       indicatorColor: Color(0xFFffac81),
       labelColor: Colors.white,
       indicatorSize: TabBarIndicatorSize.tab,

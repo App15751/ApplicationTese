@@ -1,6 +1,5 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
-import 'package:tese_app/docentes/posgrados/posgrados.dart';
 import 'cursos/cursos.dart';
 import 'novedades/novedades.dart';
 
@@ -14,7 +13,8 @@ class _MyHomePageState extends State<Docente> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFB4B4B4),
-      body: Column(
+      body: SingleChildScrollView(
+      child: Column(
         children: [
           Stack(
             alignment: const Alignment(0, 0),
@@ -48,21 +48,19 @@ class _MyHomePageState extends State<Docente> {
           Column(
             children: [
               _buildFoodItem1(
-                  'https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/posgrados.jpg?alt=media&token=b6fe7e22-414a-41f9-93bd-c7431aab8690',
-                  'Posgrados',
+                  'https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/novedades.jpg?alt=media&token=1c11da55-a368-4c3e-a097-b446153c3da5',
+                  'Novedades',
                   'Conocer Más'),
               _buildFoodItem2(
                   'https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/cursos1.jpg?alt=media&token=4a120b21-5315-43e6-b97f-532fe084813e',
                   'Cursos',
-                  'Conocer Más'),
-              _buildFoodItem3(
-                  'https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/novedades.jpg?alt=media&token=1c11da55-a368-4c3e-a097-b446153c3da5',
-                  'Novedades',
                   'Conocer Más')
+
             ],
           )
         ],
       ),
+    ),
     );
   }
 
@@ -90,117 +88,65 @@ class _MyHomePageState extends State<Docente> {
     );
   }
 
-  Widget _buildFoodItem1(String imgPath, String foodName, String price) {
-    return Padding(
-        padding: EdgeInsets.all(10),
-        child: InkWell(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => DetailsPage(
-                      heroTag: imgPath, foodName: foodName)));
-            },
-            child: Column(
-              children: [
-                Card(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                          child: Row(children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Hero(
-                              tag: imgPath,
-                              child: Image(
-                                  image: NetworkImage(imgPath),
-                                  fit: BoxFit.cover,
-                                  height: 60.0,
-                                  width: 60.0)),
-                        ),
-                        SizedBox(width: 10.0, height: 70,),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(foodName,
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)),
-                              Text(price,
-                                  overflow: TextOverflow.fade,
-                                  maxLines: 10,
-                                  softWrap: false,
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 15.0,
-                                      color: Colors.black))
-                            ])
-                      ])),
-                    ],
-                  ),
-                ),
-              ],
-            )));
-  }
 
-  Widget _buildFoodItem2(String imgPath, String foodName, String price) {
-    return Padding(
-        padding: EdgeInsets.all(10),
-        child: InkWell(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Cursos(
-                      heroTag: imgPath, foodName: foodName)));
-            },
-            child: Column(
-              children: [
-                Card(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                          child: Row(children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Hero(
-                              tag: imgPath,
-                              child: Image(
-                                  image: NetworkImage(imgPath),
-                                  fit: BoxFit.cover,
-                                  height: 60.0,
-                                  width: 60.0)),
-                        ),
-                        SizedBox(width: 10.0, height: 70,),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(foodName,
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)),
-                              Text(price,
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 15.0,
-                                      color: Colors.black))
-                            ])
-                      ])),
-                    ],
-                  ),
-                ),
-              ],
-            )));
-  }
-
-  Widget _buildFoodItem3(String imgPath, String foodName, String price) {
+  Widget _buildFoodItem1(String imgPath, String raceName, String price) {
     return Padding(
         padding: EdgeInsets.all(10),
         child: InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => Novedades(
-                      heroTag: imgPath, foodName: foodName)));
+                      heroTag: imgPath, raceName: raceName)));
+            },
+            child: Column(
+              children: [
+                Card(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                          child: Row(children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Hero(
+                                  tag: imgPath,
+                                  child: Image(
+                                      image: NetworkImage(imgPath),
+                                      fit: BoxFit.cover,
+                                      height: 60.0,
+                                      width: 60.0)
+                              ),
+                            ),
+                            SizedBox(width: 10, height: 70,),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(raceName,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.bold)),
+                                  Text(price,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 15.0,
+                                          color: Colors.black))
+                                ])
+                          ])),
+                    ],
+                  ),
+                ),
+              ],
+            )));
+  }
+  Widget _buildFoodItem2(String imgPath, String raceName, String price) {
+    return Padding(
+        padding: EdgeInsets.all(10),
+        child: InkWell(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Cursos(
+                      heroTag: imgPath, raceName: raceName)));
             },
             child: Column(
               children: [
@@ -218,14 +164,13 @@ class _MyHomePageState extends State<Docente> {
                                   image: NetworkImage(imgPath),
                                   fit: BoxFit.cover,
                                   height: 60.0,
-                                  width: 60.0)
-                          ),
+                                  width: 60.0)),
                         ),
-                            SizedBox(width: 10, height: 70,),
+                        SizedBox(width: 10.0, height: 70,),
                         Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(foodName,
+                              Text(raceName,
                                   style: TextStyle(
                                       fontFamily: 'Montserrat',
                                       fontSize: 17.0,
@@ -243,4 +188,6 @@ class _MyHomePageState extends State<Docente> {
               ],
             )));
   }
+
+
 }

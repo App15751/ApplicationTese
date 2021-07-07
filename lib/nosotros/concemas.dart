@@ -1,232 +1,160 @@
+import 'package:carousel_pro/carousel_pro.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tese_app/connection/Data.dart';
+import 'package:tese_app/connection/ImagesData.dart';
+import 'package:tese_app/connection/Words.dart';
 
-class Conocemas extends StatelessWidget {
+import 'infoConoce.dart';
+
+
+class ConceMas extends StatefulWidget {
+  @override
+  _BienvenidaState createState() => _BienvenidaState();
+}
+
+class _BienvenidaState extends State<ConceMas> {
+  final fb = FirebaseDatabase.instance.reference();
+  List<Data> list = List();
+  List<ImagesData> listImages = List();
+
+  @override
+  void initState() {
+    super.initState();
+    ConexionNovedad("Conoce", "Informacion");
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'A CERCA DE',
-        theme: ThemeData(
-          primaryColor: Color(0xFF70232D),
+    return Scaffold(
+      body: ListView(children: [
+        Stack(alignment: const Alignment(0, 0), children: <Widget>[
+          SizedBox(
+            height: 150.0,
+            width: 360.0,
+            child: Carrusel(),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.black45,
+            ),
+            child: Text(
+              'Nosotros',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ]),
+        Divider(
+          height: 30,
         ),
-        routes: <String, WidgetBuilder>{
-          "/inicio": (BuildContext context) => Inicio(),
-          "/TESE": (BuildContext context) => TESE(),
-          "/carreras": (BuildContext context) => Carreras(),
-          "/posgrados": (BuildContext context) => Posgrados(),
-          "/mision": (BuildContext context) => Mision(),
-          "/vision": (BuildContext context) => Vision(),
-        },
-        home: Inicio());
-  }
-}
-
-class TESE extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: AppBar(
-        title: new Text("Reseña Historica"),
-      ),
-      body: Center(
-        child: Text(
-            "El Tecnológico de Estudios Superiores de Ecatepec se creó en 1990 por Decreto de la Legislatura del Estado, como Organismo Descentralizado del Estado de México con personalidad jurídica y patrimonio propio, Opera mediante el financiamiento de los Gobiernos Federal y Estatal, así como por la generación de ingresos propios es el primer Tecnológico creado con carácter Descentralizado en el país, actualmente oferta 11 programas educativos de nivel licenciatura, dos son de reciente creación, el programa de Ingeniería en Gestión Empresarial y el de Ingeniería Aeronáutica, todos los demás están reconocidos por su calidad por COPAES, además oferta 6 programas de Maestría, tres en la categoría de investigación y tres con orientación profesional, el programa de Maestría en ciencias en Ingeniería Bioquímica está reconocido por el CONACyT por su calidad, pertenece al PNPC. Actualmente se atiende una matrícula de 6, 764 estudiantes de licenciatura y posgrado, la cual es atendida por 351 docentes, 147 de tiempo completo, de los cuales 28 se reconocen como perfil deseable y 10 tienen reconocimiento CONACYT por pertenecer al S.N.I."),
-      ),
+        SizedBox(
+            height: 400.0,
+            width: 200.0,
+            child: list.length == 0
+                ? Text("Cargando...")
+                : new ListView.builder(
+                itemCount: list.length,
+                itemBuilder: (_, index) {
+                  return UI(
+                      list[index].Descripcion,
+                      list[index].fecha,
+                      list[index].imagen,
+                      list[index].subtitulo,
+                      list[index].titulo);
+                }))
+      ]),
     );
   }
-}
 
-class Carreras extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: AppBar(
-        title: new Text("Carreras"),
-      ),
-      body: Center(
-        child: Text(
-            "Ingeniería Química, Ingeniería Bioquímica, Ingeniería Electrónica, Ingeniería Industrial, Ingeniería Mecánica, Ingeniería Mecatrónica, Ingeniería Sistemas Computacionales. Ingeniería en Informática, Ingeniería en Gestión Empresarial, Licenciatura en Contaduría, Licenciatura en Informática, Contador Público, Ingeniería Aeronáutica"),
-      ),
-    );
-  }
-}
-
-class Posgrados extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: AppBar(
-        title: new Text("Posgrados"),
-      ),
-      body: Center(
-        child: Text(
-            "Maestría en Ciencias en Ingeniería Química, Maestría en Ciencias en Ingeniería Bioquímica, Maestría en Ciencias en Ingeniería Mecatrónica, Maestría en Ingeniería en Sistemas Computacionales, Maestría en Gestión Administrativa, Maestría en Eficiencia Energética y Energías Renovables"),
-      ),
-    );
-  }
-}
-
-class Mision extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: AppBar(
-        title: new Text("Mision"),
-      ),
-      body: Center(
-        child: Text(
-            "Ofrecer educación superior integral de calidad por competencias, que permita formar profesionistas líderes, creativos y competitivos en una realidad global, con capacidades para identificar y resolver problemas, comprometidos con el desarrollo tecnológico, económico, cultural y social del País, Estado y entrono local"),
-      ),
-    );
-  }
-}
-
-class Vision extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: AppBar(
-        title: new Text("Vision"),
-      ),
-      body: Center(
-        child: Text(
-            "Ser la Institución de Educación Superior Tecnológica del Estado de México y del país con reconocimiento nacional e internacional en la generación y aplicación del conocimiento, por la excelencia de la formación y los servicios que otorga, para la generación de soluciones innovadoras que aporten a las prioridades locales, estatales y nacionales en un ambiente sostenible, de inclusión, equidad y transparencia."),
-      ),
-    );
-  }
-}
-
-class Inicio extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: AppBar(
-          title: new Text("Conoce Mas...."),
-        ),
-        body: Container(
-          padding: EdgeInsets.only(top: 120, bottom: 10, right: 5, left: 5),
-          decoration: BoxDecoration(
-              color: Colors.red,
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                      "https://2.bp.blogspot.com/-lsgA7ExDuw0/VZei65HtwpI/AAAAAAABDCY/tosAdLlOPQo/s1600/NI8MCGIJJD2045.jpg"),
-                  alignment: Alignment.topCenter)),
-          child: Column(
+  Widget UI(String descripcion, String fecha, String imagen, String subtitulo, String titulo) {
+    return GestureDetector(
+      onTap: () {},
+      child: new Card(
+          margin:
+          EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0, bottom: 20.0),
+          elevation: 15,
+          child: new Column(
             children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Column(children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(20),
-                      child: RaisedButton(
-                          color: Colors.white,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          onPressed: () {
-                            Navigator.pushNamed(context, "/TESE");
-                          },
-                          child: SizedBox(
-                              width: 200,
-                              height: 100,
-                              child: Center(
-                                child: Text(
-                                  'TESE',
-                                  textAlign: TextAlign.center,
-                                ),
-                              ))),
-                    )
-                  ]),
-                  Column(children: <Widget>[
-                    Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Center(
-                          child: RaisedButton(
-                              color: Colors.white,
-                              shape: new RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              onPressed: () {
-                                Navigator.pushNamed(context, "/carreras");
-                              },
-                              child: SizedBox(
-                                  width: 200,
-                                  height: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'CARRERAS',
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ))),
-                        ))
-                  ]),
-                  Column(children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                          color: Colors.white,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          onPressed: () {
-                            Navigator.pushNamed(context, "/posgrados");
-                          },
-                          child: SizedBox(
-                              width: 200,
-                              height: 100,
-                              child: Center(
-                                child: Text(
-                                  'POSGRADOS',
-                                  textAlign: TextAlign.center,
-                                ),
-                              ))),
-                    )
-                  ]),
-                  Column(children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                          color: Colors.white,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          onPressed: () {
-                            Navigator.pushNamed(context, "/mision");
-                          },
-                          child: SizedBox(
-                              width: 200,
-                              height: 100,
-                              child: Center(
-                                child: Text(
-                                  'MISION',
-                                  textAlign: TextAlign.center,
-                                ),
-                              ))),
-                    )
-                  ]),
-                  Column(children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                          color: Colors.white,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          onPressed: () {
-                            Navigator.pushNamed(context, "/vision");
-                          },
-                          child: SizedBox(
-                              width: 200,
-                              height: 100,
-                              child: Center(
-                                child: Text(
-                                  'VISION',
-                                  textAlign: TextAlign.center,
-                                ),
-                              ))),
-                    )
-                  ])
-                ],
+              new ListTile(
+                leading: new Image.network(
+                  imagen,
+                  fit: BoxFit.cover,
+                  width: 100.0,
+                ),
+                title: new Text(
+                  titulo,
+                  style: new TextStyle(
+                      fontSize: 14.0, fontWeight: FontWeight.bold),
+                ),
+                subtitle: new Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      new Text(subtitulo,
+                          style: new TextStyle(
+                              fontSize: 13.0, fontWeight: FontWeight.normal)),
+                    ]),
+                //trailing: ,
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => infoConoce(Data(
+                          descripcion, fecha, imagen, subtitulo, titulo))));
+                },
               )
             ],
-          ),
-        ));
+          )),
+    );
+  }
+
+  Widget Carrusel() {
+    return Carousel(
+      images: [
+        NetworkImage(
+            'https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/tese%2Ftesepics_70335491_141527077122249_8326548529380950727_n.jpg?alt=media&token=a4a5db53-d164-42af-bc6e-aead398e61c0'),
+        NetworkImage(
+            'https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/tese%2Finsta_tese_43778375_1865238960219454_3003227947128038243_n.jpg?alt=media&token=314f5aef-a5b8-4c2a-99e6-7a3448e3884d'),
+        NetworkImage(
+            'https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/tese%2Ftesepics_71116541_865235730537689_2935188316331782456_n.jpg?alt=media&token=deb0b88d-5e9e-492e-b59d-1796695d7403'),
+        NetworkImage(
+            'https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/tese%2Ftesepics_66236182_368001160565526_3984091680599857593_n.jpg?alt=media&token=4b88a12a-5c92-4dbc-809d-2830c13ca4e5'),
+        NetworkImage(
+            'https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/tese%2Ftesepics_66340107_373391766658789_3889978318667249151_n.jpg?alt=media&token=05624cba-1d21-4163-924d-ecd6e367aadb'),
+      ],
+      showIndicator: false,
+      borderRadius: false,
+      moveIndicatorFromBottom: 180.0,
+      noRadiusForIndicator: true,
+      overlayShadow: true,
+      overlayShadowColors: Colors.white,
+      overlayShadowSize: 0.7,
+    );
+  }
+
+  void ConexionNovedad(String NodoPrincipal, String NodoSecundario) {
+    fb
+        .child(NodoPrincipal)
+        .child(NodoSecundario)
+        .once()
+        .then((DataSnapshot snap) {
+      var data = snap.value;
+      list.clear();
+      data.forEach((key, value) {
+        Data data = new Data(
+          value[Words().DESCRIPTION],
+          value[Words().DATE],
+          value[Words().IAMGE],
+          value[Words().SUBTITLE],
+          value[Words().TITLE],
+        );
+        list.add(data);
+      });
+      setState(() {});
+    });
   }
 }

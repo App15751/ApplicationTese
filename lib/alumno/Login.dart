@@ -25,24 +25,26 @@ class _MyAppState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          children: <Widget>[
-            Icon(
-              Icons.account_circle,
-              size: 200,
-              color: Colors.blue,
-            ),
-            boxUi(),
-          ],
-        ));
+    return SingleChildScrollView(
+      child: Container(
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            children: <Widget>[
+              Icon(
+                Icons.account_circle,
+                size: 200,
+                color: Colors.blue,
+              ),
+              boxUi(),
+            ],
+          )),
+    );
   }
 
   void changeState() {
     if (signin) {
       setState(() {
-        signin = false;
+        signin = true;
       });
     } else
       setState(() {
