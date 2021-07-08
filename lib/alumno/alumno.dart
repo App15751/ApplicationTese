@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tese_app/Widgets.dart';
 import 'package:tese_app/alumno/Novedades.dart';
 import 'Login.dart';
 
@@ -41,7 +41,7 @@ class Xook extends StatelessWidget {
               Column(children: <Widget>[
                 Padding(
                   padding: EdgeInsets.all(10),
-                  child: RaisedButton(
+                  child: MaterialButton(
                       color: Colors.white,
                       shape: new RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0)),
@@ -86,7 +86,7 @@ class Xook extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(10),
-                    child: RaisedButton(
+                    child: MaterialButton(
                         color: Colors.white,
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
@@ -132,7 +132,7 @@ class Xook extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.all(10),
-            child: RaisedButton(
+            child: MaterialButton(
                 color: Colors.white,
                 shape: new RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
@@ -209,26 +209,28 @@ class _InicioState extends State<Inicio> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Column(
-      children: <Widget>[
-        ImgenCabecera(),
-        Container(
-            child: Column(children: <Widget>[
+    return Material(
+      child: SingleChildScrollView(
+          child: Column(
+        children: <Widget>[
+          _ImgenCabecera(),
           Container(
-            child: getTabBar(),
-            color: Color(0xFF70232D),
-          ),
-          Container(
-            height: 450,
-            child: getTabBarView(<Widget>[Novedades(), Xook()]),
-          )
-        ]))
-      ],
-    ));
+              child: Column(children: <Widget>[
+            Container(
+              child: _getTabBar(),
+              color: Color(0xFF70232D),
+            ),
+            Container(
+              height: 450,
+              child: _getTabBarView(<Widget>[Novedades(), Xook()]),
+            )
+          ]))
+        ],
+      )),
+    );
   }
 
-  Widget ImgenCabecera() {
+  Widget _ImgenCabecera() {
     return Stack(alignment: const Alignment(0, 0), children: <Widget>[
       Image(
         height: 185,
@@ -238,23 +240,11 @@ class _InicioState extends State<Inicio> with SingleTickerProviderStateMixin {
         image: NetworkImage(
             "https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/tese%2Ftesepics_67509949_248264832723576_6279915397766464018_n.jpg?alt=media&token=4b625551-19d0-40b2-a187-fbcbf18f4ce4"),
       ),
-      Container(
-        decoration: BoxDecoration(
-          color: Colors.black45,
-        ),
-        child: Text(
-          'Alumnos',
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      Widgets().Title('Alumno')
     ]);
   }
 
-  TabBar getTabBar() {
+  TabBar _getTabBar() {
     return TabBar(
       tabs: <Tab>[Tab(text: "Noticias"), Tab(text: "XOOK")],
       controller: _tabController,
@@ -268,7 +258,7 @@ class _InicioState extends State<Inicio> with SingleTickerProviderStateMixin {
     );
   }
 
-  TabBarView getTabBarView(var display) {
+  TabBarView _getTabBarView(var display) {
     return TabBarView(
       children: display,
       controller: _tabController,

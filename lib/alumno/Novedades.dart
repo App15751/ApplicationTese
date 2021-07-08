@@ -4,6 +4,8 @@ import 'package:tese_app/connection/Data.dart';
 import 'package:tese_app/connection/Words.dart';
 import 'package:tese_app/inicio/Details.dart';
 
+import '../Widgets.dart';
+
 class Novedades extends StatefulWidget {
   Novedades({Key key}) : super(key: key);
 
@@ -39,56 +41,17 @@ class _NovedadesState extends State<Novedades> {
         : new ListView.builder(
     itemCount: list.length,
     itemBuilder: (_, index) {
-    return UI(
+    return Widgets().UI(
     list[index].Descripcion,
     list[index].fecha,
     list[index].imagen,
     list[index].subtitulo,
-    list[index].titulo);
+    list[index].titulo,
+    context);
     }))
     ]);
   }
 
-  Widget UI(String descripcion, String fecha, String imagen, String subtitulo,
-      String titulo) {
-    return GestureDetector(
-      onTap: (){
-
-      },
-      child: new Card(
-          margin: EdgeInsets.only(left:20.0, top:10.0,right:20.0,bottom:20.0) ,
-          elevation: 15,
-          child: new Column(
-            children: <Widget>[
-              new ListTile(
-                leading: new Image.network(
-                  imagen,
-                  fit: BoxFit.cover,
-                  width: 100.0,
-                ),
-                title: new Text(
-                  titulo,
-                  style:
-                  new TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
-                ),
-                subtitle: new Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      new Text(subtitulo,
-                          style: new TextStyle(
-                              fontSize: 13.0, fontWeight: FontWeight.normal)),
-                    ]),
-                //trailing: ,
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Details(Data(descripcion,fecha,imagen,subtitulo,titulo))));
-                },
-              )
-            ],
-          )),
-    );
-  }
 
   void ConexionNovedad(String NodoPrincipal, String NodoSecundario) {
     fb

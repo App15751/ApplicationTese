@@ -2,11 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tese_app/Widgets.dart';
 import 'package:tese_app/connection/Data.dart';
 import 'package:tese_app/connection/ImagesData.dart';
 import 'package:tese_app/connection/Words.dart';
-
-import 'Details.dart';
 
 class Bienvenida extends StatefulWidget {
   @override
@@ -21,51 +20,20 @@ class _BienvenidaState extends State<Bienvenida> {
   @override
   void initState() {
     super.initState();
-    ConexionImages("Inicio", "Tese");
-    ConexionNovedad("Inicio", "Novedades");
+    _ConexionImages("Inicio", "Tese");
+    _ConexionNovedad("Inicio", "Novedades");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(children: [
-        Stack(alignment: const Alignment(0, 0), children: <Widget>[
-          SizedBox(
-              height: 150.0,
-              width: 360.0,
-              child: CarouselSlider.builder(
-                  itemCount: listImages.length,
-                  itemBuilder: (_, x, index) {
-                    return Container(
-                        child: Image(
-                      alignment: Alignment.center,
-                      fit: BoxFit.fill,
-                      image: NetworkImage(listImages[x].imagen),
-                    ));
-                  },
-                  options: CarouselOptions(
-                    autoPlay: true,
-                    viewportFraction: 1,
-                    aspectRatio: 0.7,
-                    enableInfiniteScroll: true,
-                    disableCenter: true,
-                    enlargeCenterPage: true,
-                    initialPage: 1,
-                  ))),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.black45,
-            ),
-            child: Text(
-              'Inicio',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ]),
+        listImages.length == 0
+            ? Widgets().Progress()
+            : Stack(alignment: const Alignment(0, 0), children: <Widget>[
+              CarrouselWidget(),
+                Widgets().Title('Inicio'),
+              ]),
         Divider(
           height: 25,
         ),
@@ -73,63 +41,44 @@ class _BienvenidaState extends State<Bienvenida> {
             height: 400.0,
             width: 200.0,
             child: list.length == 0
-                ? Text("Cargando...")
+                ? Widgets().Progress()
                 : new ListView.builder(
                     itemCount: list.length,
                     itemBuilder: (_, index) {
-                      return UI(
+                      return Widgets().UI(
                           list[index].Descripcion,
                           list[index].fecha,
                           list[index].imagen,
                           list[index].subtitulo,
-                          list[index].titulo);
+                          list[index].titulo,
+                          context);
                     }))
       ]),
     );
   }
 
-  Widget UI(String descripcion, String fecha, String imagen, String subtitulo,
-      String titulo) {
-    return GestureDetector(
-      onTap: () {},
-      child: new Card(
-          margin:
-              EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0, bottom: 20.0),
-          elevation: 15,
-          child: new Column(
-            children: <Widget>[
-              new ListTile(
-                leading: new Image.network(
-                  imagen,
-                  fit: BoxFit.cover,
-                  width: 100.0,
-                ),
-                title: new Text(
-                  titulo,
-                  style: new TextStyle(
-                      fontSize: 14.0, fontWeight: FontWeight.bold),
-                ),
-                subtitle: new Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      new Text(subtitulo,
-                          style: new TextStyle(
-                              fontSize: 13.0, fontWeight: FontWeight.normal)),
-                    ]),
-                //trailing: ,
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Details(Data(
-                          descripcion, fecha, imagen, subtitulo, titulo))));
-                },
-              )
-            ],
-          )),
-    );
+  Widget CarrouselWidget(){
+   return SizedBox(
+        height: 150.0,
+        width: 360.0,
+        child: CarouselSlider.builder(
+            itemCount: listImages.length,
+            itemBuilder: (_, x, index) {
+              return Widgets().ImageCarousel(listImages[x].imagen);
+            },
+            options: CarouselOptions(
+              autoPlay: true,
+              viewportFraction: 1,
+              aspectRatio: 0.7,
+              enableInfiniteScroll: true,
+              disableCenter: true,
+              enlargeCenterPage: true,
+              initialPage: 1,
+            )));
   }
 
-  void ConexionNovedad(String NodoPrincipal, String NodoSecundario) {
+
+  void _ConexionNovedad(String NodoPrincipal, String NodoSecundario) {
     fb
         .child(NodoPrincipal)
         .child(NodoSecundario)
@@ -151,7 +100,7 @@ class _BienvenidaState extends State<Bienvenida> {
     });
   }
 
-  void ConexionImages(String NodoPrincipal, String NodoSecundario) {
+  void _ConexionImages(String NodoPrincipal, String NodoSecundario) {
     fb
         .child(NodoPrincipal)
         .child(NodoSecundario)

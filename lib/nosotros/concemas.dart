@@ -1,13 +1,11 @@
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tese_app/Widgets.dart';
 import 'package:tese_app/connection/Data.dart';
 import 'package:tese_app/connection/ImagesData.dart';
 import 'package:tese_app/connection/Words.dart';
-
-import 'infoConoce.dart';
 
 
 class ConceMas extends StatefulWidget {
@@ -36,19 +34,7 @@ class _BienvenidaState extends State<ConceMas> {
             width: 360.0,
             child: Carrusel(),
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.black45,
-            ),
-            child: Text(
-              'Nosotros',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          Widgets().Title('Nosotros')
         ]),
         Divider(
           height: 30,
@@ -57,60 +43,23 @@ class _BienvenidaState extends State<ConceMas> {
             height: 400.0,
             width: 200.0,
             child: list.length == 0
-                ? Text("Cargando...")
+                ? Widgets().Progress()
                 : new ListView.builder(
                 itemCount: list.length,
                 itemBuilder: (_, index) {
-                  return UI(
+                  return Widgets().UI(
                       list[index].Descripcion,
                       list[index].fecha,
                       list[index].imagen,
                       list[index].subtitulo,
-                      list[index].titulo);
+                      list[index].titulo, 
+                      context);
                 }))
       ]),
     );
   }
 
-  Widget UI(String descripcion, String fecha, String imagen, String subtitulo, String titulo) {
-    return GestureDetector(
-      onTap: () {},
-      child: new Card(
-          margin:
-          EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0, bottom: 20.0),
-          elevation: 15,
-          child: new Column(
-            children: <Widget>[
-              new ListTile(
-                leading: new Image.network(
-                  imagen,
-                  fit: BoxFit.cover,
-                  width: 100.0,
-                ),
-                title: new Text(
-                  titulo,
-                  style: new TextStyle(
-                      fontSize: 14.0, fontWeight: FontWeight.bold),
-                ),
-                subtitle: new Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      new Text(subtitulo,
-                          style: new TextStyle(
-                              fontSize: 13.0, fontWeight: FontWeight.normal)),
-                    ]),
-                //trailing: ,
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => infoConoce(Data(
-                          descripcion, fecha, imagen, subtitulo, titulo))));
-                },
-              )
-            ],
-          )),
-    );
-  }
+  
 
   Widget Carrusel() {
     return Carousel(

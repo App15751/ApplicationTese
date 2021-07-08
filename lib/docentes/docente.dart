@@ -1,7 +1,7 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
-import 'cursos/cursos.dart';
-import 'novedades/novedades.dart';
+import 'package:tese_app/connection/ImagesData.dart';
+import '../Widgets.dart';
 
 class Docente extends StatefulWidget {
   @override
@@ -9,12 +9,18 @@ class Docente extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<Docente> {
+  List<ImagesData> list = List();
+
+  @override
+  void initState() {
+    super.initState();
+    _CargarOpciones();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFB4B4B4),
-      body: SingleChildScrollView(
-      child: Column(
+      body: ListView(
         children: [
           Stack(
             alignment: const Alignment(0, 0),
@@ -24,44 +30,39 @@ class _MyHomePageState extends State<Docente> {
                 width: 360.0,
                 child: Carrusel(),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.black45,
-                ),
-                child: Text(
-                  'Docentes',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              Widgets().Title('Docentes'),
             ],
           ),
 
           Padding(
-            padding: const EdgeInsets.only(top: 15, bottom: 13),
+            padding: const EdgeInsets.only(top: 15, bottom: 13,left: 15),
             child: Text('Selecciona alguna de las siguientes opciones', style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),),
           ),
-
-          Column(
-            children: [
-              _buildFoodItem1(
-                  'https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/novedades.jpg?alt=media&token=1c11da55-a368-4c3e-a097-b446153c3da5',
-                  'Novedades',
-                  'Conocer Más'),
-              _buildFoodItem2(
-                  'https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/cursos1.jpg?alt=media&token=4a120b21-5315-43e6-b97f-532fe084813e',
-                  'Cursos',
-                  'Conocer Más')
-
-            ],
-          )
+          SizedBox(
+            height: 400.0,
+            width: 200.0,
+            child: list.length == 0
+                ? Widgets().Progress()
+                : ListView.builder(
+                itemCount: list.length,
+                itemBuilder: (_, index) {
+                  return Widgets().buildFootItem(
+                      list[index].titulo, list[index].imagen,context);
+                }),
+          ),
         ],
       ),
-    ),
     );
+  }
+
+  void _CargarOpciones() {
+    list.add(ImagesData(
+        'https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/novedades.jpg?alt=media&token=1c11da55-a368-4c3e-a097-b446153c3da5',
+        'Novedades'));
+    list.add(ImagesData(
+        'https://firebasestorage.googleapis.com/v0/b/app-tese.appspot.com/o/cursos1.jpg?alt=media&token=4a120b21-5315-43e6-b97f-532fe084813e',
+        'Cursos'));
+
   }
 
   Widget Carrusel() {
@@ -86,107 +87,6 @@ class _MyHomePageState extends State<Docente> {
       overlayShadowColors: Colors.white,
       overlayShadowSize: 0.7,
     );
-  }
-
-
-  Widget _buildFoodItem1(String imgPath, String raceName, String price) {
-    return Padding(
-        padding: EdgeInsets.all(10),
-        child: InkWell(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Novedades(
-                      heroTag: imgPath, raceName: raceName)));
-            },
-            child: Column(
-              children: [
-                Card(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                          child: Row(children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Hero(
-                                  tag: imgPath,
-                                  child: Image(
-                                      image: NetworkImage(imgPath),
-                                      fit: BoxFit.cover,
-                                      height: 60.0,
-                                      width: 60.0)
-                              ),
-                            ),
-                            SizedBox(width: 10, height: 70,),
-                            Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(raceName,
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 17.0,
-                                          fontWeight: FontWeight.bold)),
-                                  Text(price,
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 15.0,
-                                          color: Colors.black))
-                                ])
-                          ])),
-                    ],
-                  ),
-                ),
-              ],
-            )));
-  }
-  Widget _buildFoodItem2(String imgPath, String raceName, String price) {
-    return Padding(
-        padding: EdgeInsets.all(10),
-        child: InkWell(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Cursos(
-                      heroTag: imgPath, raceName: raceName)));
-            },
-            child: Column(
-              children: [
-                Card(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                          child: Row(children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Hero(
-                              tag: imgPath,
-                              child: Image(
-                                  image: NetworkImage(imgPath),
-                                  fit: BoxFit.cover,
-                                  height: 60.0,
-                                  width: 60.0)),
-                        ),
-                        SizedBox(width: 10.0, height: 70,),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(raceName,
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)),
-                              Text(price,
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 15.0,
-                                      color: Colors.black))
-                            ])
-                      ])),
-                    ],
-                  ),
-                ),
-              ],
-            )));
   }
 
 

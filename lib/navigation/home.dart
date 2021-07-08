@@ -97,4 +97,24 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  //TODO no tocar >:(
+  Nested(){
+    return NestedScrollView(headerSliverBuilder: (BuildContext context, bool inerboxIsScrolled){
+      return <Widget>[
+        SliverAppBar(
+
+            expandedHeight: 200,
+            floating: false,
+            pinned: false,
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: true,
+              title: Text(widget.title,style: TextStyle(color: Colors.white,fontSize: 16),),
+            )
+        )
+
+      ];
+    }, body: _paginas[selectedIndex],
+    );
+  }
 }

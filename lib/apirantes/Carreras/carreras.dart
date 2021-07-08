@@ -1,6 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:animate_do/animate_do.dart';
 import 'package:tese_app/connection/Data.dart';
 import 'package:tese_app/connection/Words.dart';
 
