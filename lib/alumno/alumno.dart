@@ -7,6 +7,7 @@ import 'Login.dart';
 class Alumno extends StatefulWidget {
   @override
   _AlumnoState createState() => _AlumnoState();
+
 }
 
 class _AlumnoState extends State<Alumno> {
