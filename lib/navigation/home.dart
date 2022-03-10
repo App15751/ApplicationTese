@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:tese_app/alumno/alumno.dart';
 import 'package:tese_app/apirantes/aspirante.dart';
 import 'package:tese_app/docentes/docente.dart';
@@ -52,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: _paginas[selectedIndex],
-      bottomNavigationBar: FFNavigationBar(
+     /* bottomNavigationBar: FFNavigationBar(
         theme: FFNavigationBarTheme(
           barBackgroundColor: Colors.white,
           selectedItemBorderColor: Colors.transparent,
@@ -94,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
             selectedBackgroundColor: Colors.red,
           ),
         ],
-      ),
+      ),*/
     );
   }
 
